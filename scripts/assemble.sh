@@ -16,7 +16,16 @@ mkdir -p "$OUT/try" "$OUT/workshop" "$OUT/join"
 
 cp index.html site.css "$OUT/"
 cp workshop/index.html "$OUT/workshop/"
-cp join/index.html "$OUT/join/"
+# The join page ships ONLY when its MailerLite endpoint is wired. Shipping it
+# with placeholders would put a form on the public site that silently discards
+# every signup — the same class of silent failure the app's click assessment
+# spent a day removing.
+if grep -q 'MAILERLITE_ENDPOINT' join/index.html; then
+  echo "assemble: join/ NOT shipped — form endpoint is still a placeholder" >&2
+  rmdir "$OUT/join"
+else
+  cp join/index.html "$OUT/join/"
+fi
 
 # ---- the taster: same derivation copy-dist.sh uses, pointed at the checkout
 cp "$SRC/index.html" "$OUT/try/"
