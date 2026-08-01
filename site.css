@@ -80,3 +80,11 @@ h2 { font-size: 20px; margin: 34px 0 12px; }
 .threes > div { background: var(--panel); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
 .threes b { font-size: 15.5px; }
 .threes p { font-size: 14px; color: var(--ink-soft); margin: 6px 0 0; }
+
+/* the three lesson doors */
+.threes > a { display: block; text-decoration: none; color: inherit;
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.threes > a:hover { border-color: var(--accent); }
+.threes > a b { font-size: 15.5px; }
+.threes > a p { font-size: 14px; color: var(--ink-soft); margin: 6px 0 8px; }
+.threes .go { font-size: 13px; font-weight: 700; color: var(--accent); }

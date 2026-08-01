@@ -13829,29 +13829,51 @@
   if (window.SAGE_DEMO) {
     const t = document.querySelector('#topbar .tag');
     if (t) t.textContent = 'Taster — work stays in this browser';
-    if (!persisted.existed && SAGE_DEMO.seed && Array.isArray(SAGE_DEMO.seed.screens)) {
-      const built = {
-        deckName: SAGE_DEMO.seed.deckName || 'Try Sage Stage',
-        lists: SAGE_DEMO.seed.lists && typeof SAGE_DEMO.seed.lists === 'object' ? SAGE_DEMO.seed.lists : {},
-        screens: SAGE_DEMO.seed.screens.map((s) => ({
-          id: uid(), name: s.name || '',
-          background: s.background || { type: 'color', value: '#f4f7f6' },
-          widgets: (s.widgets || []).filter((w) => WIDGETS[w.type]).map((w, i) => ({
-            id: uid(), type: w.type,
-            x: w.x || 60, y: w.y || 80,
-            w: w.w || WIDGETS[w.type].w, h: w.h || WIDGETS[w.type].h,
-            z: 10 + i,
-            props: { ...WIDGETS[w.type].defaults(), ...(w.props || {}) },
-          })),
-        })),
-      };
-      const next = normalize(built);
+    const spec = SAGE_DEMO.seed && Array.isArray(SAGE_DEMO.seed.screens) ? SAGE_DEMO.seed : null;
+    const buildScreens = (screens) => screens.map((s) => ({
+      id: uid(), name: s.name || '',
+      background: s.background || { type: 'color', value: '#f4f7f6' },
+      widgets: (s.widgets || []).filter((w) => WIDGETS[w.type]).map((w, i) => ({
+        id: uid(), type: w.type,
+        x: w.x || 60, y: w.y || 80,
+        w: w.w || WIDGETS[w.type].w, h: w.h || WIDGETS[w.type].h,
+        z: 10 + i,
+        props: { ...WIDGETS[w.type].defaults(), ...(w.props || {}) },
+      })),
+    }));
+    if (spec && !persisted.existed) {
+      // fresh browser: the chosen deck IS the state
+      const next = normalize({
+        deckName: spec.deckName || 'Try Sage Stage',
+        lists: spec.lists && typeof spec.lists === 'object' ? spec.lists : {},
+        screens: buildScreens(spec.screens),
+      });
       if (next) {
         state = scrubImportedHTML(next);
         rewardsDayTick(); applyReadingFont(); renderStarPill();
         save(); renderScreen();
         demoSeeded = true;   // land ON the showcase, not the dashboard
       }
+    } else if (spec && SAGE_DEMO.requested) {
+      // a landing-page card was clicked and this browser already holds work:
+      // ADD the requested deck if it isn't here yet, open it, touch nothing
+      // else — the never-overwrite rule survives the deep links
+      let deck = state.decks.find((d) => d.name === spec.deckName);
+      if (!deck) {
+        deck = {
+          id: uid(), name: spec.deckName, classList: null, subject: '',
+          yearGroup: null, pinnedTop: false, createdAt: Date.now(),
+          lastUsed: Date.now(), current: 0, screens: buildScreens(spec.screens),
+        };
+        state.decks.push(deck);
+        for (const [k, v] of Object.entries(spec.lists || {})) {
+          if (!state.lists[k]) state.lists[k] = v.slice();
+        }
+      }
+      state.activeDeck = deck.id;
+      deck.current = 0;
+      save(); renderScreen();
+      demoSeeded = true;
     }
   }
   if (!persisted.existed && !demoSeeded) {
