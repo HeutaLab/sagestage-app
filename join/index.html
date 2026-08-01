@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Sage Stage list</title>
+  <meta name="description" content="Hear when something worth your minute ships — and pick which of it you actually want. No tracking, unsubscribe any time." />
+  <link rel="stylesheet" href="../site.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="../">🌿 Sage Stage</a>
+      <nav>
+        <a href="../try/">Try it</a>
+        <a href="https://sagestage.co.uk">Help</a>
+        <a href="https://heutalab.com" rel="noopener">HeutaLab</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="join-hero">
+        <svg class="join-face" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="6" y="14" width="88" height="80" rx="26" fill="#cdeadf" />
+          <path d="M78 20c8-9 18-11 18-11s-1 12-8 18-16 6-16 6 0-8 6-13z" fill="#2f7f68" />
+          <circle cx="38" cy="50" r="6" fill="#22303c" />
+          <circle cx="64" cy="50" r="6" fill="#22303c" />
+          <path d="M36 66c4 7 10 10 15 10s11-3 15-10z" fill="#22303c" />
+        </svg>
+        <div>
+          <h1>Stay in the loop</h1>
+          <p class="lede">Made by a teacher who is still in the classroom — so you'll only ever
+            get an email when there's something genuinely worth your minute. Pick what you care
+            about; you'll hear about the rest exactly never.</p>
+        </div>
+      </div>
+
+      <form class="join-form" method="post" action="MAILERLITE_ENDPOINT" novalidate>
+        <label class="join-label" for="email">Your email</label>
+        <input class="join-input" type="email" id="email" name="fields[email]"
+               placeholder="you@school.email" autocomplete="email" required />
+
+        <p class="join-label" style="margin-top:22px;">What would you like to hear about?</p>
+
+        <label class="join-check">
+          <input type="checkbox" name="groups[]" value="GROUP_SAGE_STAGE" checked />
+          <span><b>Sage Stage</b> — the classroom screen. New widgets, the desktop app,
+            things worth showing your staff.</span>
+        </label>
+
+        <label class="join-check">
+          <input type="checkbox" name="groups[]" value="GROUP_ASSESSMENT" />
+          <span><b>The assessment suite</b> — Classroom Helper and Report Writer: capturing
+            evidence at classroom speed, and reports in your own voice. Arriving through the
+            autumn.</span>
+        </label>
+
+        <label class="join-check">
+          <input type="checkbox" name="groups[]" value="GROUP_TALKS" />
+          <span><b>Talks and workshops</b> — including “The Human in the Middle”: keeping a
+            teacher at every joint where meaning happens.</span>
+        </label>
+
+        <button class="cta join-submit" type="submit">Join the list</button>
+
+        <p class="smallprint join-print">Double opt-in, so you'll get one email asking you to
+          confirm — that's the consent record, and it's yours as much as ours. Your address is
+          held by our newsletter service purely to send these; unsubscribe any time and it's
+          deleted. No tracking pixels, no selling, no “we miss you” emails. That's the lot.</p>
+      </form>
+
+      <p class="join-alt">Prefer not to hand over an address? Nothing here needs one —
+        <a href="../try/">the taster</a> runs in your browser and keeps your work on your machine,
+        and <a href="https://sagestage.co.uk">the help pages</a> are open to everyone.</p>
+    </main>
+
+    <footer>A HeutaLab thing, made in a real classroom. ·
+      <a href="https://sagestage.co.uk">Help</a> ·
+      <a href="../workshop/">Workshop</a></footer>
+  </div>
+</body>
+</html>

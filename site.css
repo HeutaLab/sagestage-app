@@ -88,3 +88,30 @@ h2 { font-size: 20px; margin: 34px 0 12px; }
 .threes > a b { font-size: 15.5px; }
 .threes > a p { font-size: 14px; color: var(--ink-soft); margin: 6px 0 8px; }
 .threes .go { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+/* the join page — warmer than the rest, because it is where someone decides */
+.join-hero { display: flex; gap: 20px; align-items: flex-start; margin: 20px 0 26px; flex-wrap: wrap; }
+.join-face { flex: none; width: 88px; height: 88px; }
+
+.join-hero h1 { margin: 0 0 8px; }
+.join-form {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 22px 24px; max-width: 640px;
+}
+.join-label { font-weight: 700; font-size: 14.5px; display: block; margin: 0 0 8px; }
+.join-input {
+  width: 100%; font: inherit; padding: 12px 16px; border-radius: 10px;
+  border: 1.5px solid var(--line); background: #fff; box-sizing: border-box;
+}
+.join-input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.join-check {
+  display: flex; gap: 11px; align-items: flex-start; padding: 11px 13px; margin: 0 0 8px;
+  border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; font-size: 14px;
+  color: var(--ink-soft); line-height: 1.45;
+}
+.join-check:hover { border-color: var(--accent); }
+.join-check input { margin-top: 3px; flex: none; width: 17px; height: 17px; accent-color: var(--accent); }
+.join-check b { color: var(--ink); }
+.join-submit { border: none; font: inherit; font-weight: 700; cursor: pointer; margin-top: 14px; }
+.join-print { margin: 14px 0 0; }
+.join-alt { font-size: 14px; color: var(--ink-soft); margin: 20px 0 0; max-width: 640px; }

@@ -12,10 +12,11 @@ cd "$(dirname "$0")/.."
 
 OUT=site
 rm -rf "$OUT"
-mkdir -p "$OUT/try" "$OUT/workshop"
+mkdir -p "$OUT/try" "$OUT/workshop" "$OUT/join"
 
 cp index.html site.css "$OUT/"
 cp workshop/index.html "$OUT/workshop/"
+cp join/index.html "$OUT/join/"
 
 # ---- the taster: same derivation copy-dist.sh uses, pointed at the checkout
 cp "$SRC/index.html" "$OUT/try/"
