@@ -1,0 +1,5 @@
+# Build output — CI assembles this on every deploy (scripts/assemble.sh),
+# so a committed copy only ever goes stale and duplicates the whole app.
+site/
+.DS_Store
+.claude/settings.local.json
