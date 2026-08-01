@@ -1,0 +1,20 @@
+{
+  "id": "maths-mental-starter",
+  "name": "Mental maths starter",
+  "category": "STEM",
+  "description": "Dice sums on the board, a countdown and a picker to choose who answers.",
+  "author": "Mr. Okafor",
+  "screens": [{
+    "background": { "type": "gradient", "value": "linear-gradient(160deg,#1e3a8a,#3b82f6 55%,#a5f3fc)" },
+    "widgets": [
+      { "type": "dice", "fx": 0.05, "fy": 0.12, "fw": 0.3, "fh": 0.42,
+        "props": { "count": 3, "showTotal": false } },
+      { "type": "timer", "fx": 0.4, "fy": 0.12, "fw": 0.25, "fh": 0.38,
+        "props": { "total": 60, "remaining": 60 } },
+      { "type": "picker", "fx": 0.7, "fy": 0.12, "fw": 0.26, "fh": 0.42,
+        "props": {} },
+      { "type": "text", "fx": 0.05, "fy": 0.62, "fw": 0.6, "fh": 0.25,
+        "props": { "html": "<b>Roll three dice.</b><div>Add them, double the answer, then take away 5. Ready?</div>", "size": 26, "align": "left" } }
+    ]
+  }]
+}

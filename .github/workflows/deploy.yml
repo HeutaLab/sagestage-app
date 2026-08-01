@@ -1,0 +1,42 @@
+# sagestage.app — the taster site. Deploys DELIBERATELY (a "Run workflow"
+# click), never on every push to the app repo: a broken main over there must
+# never break the public taster. SageStage is public, so the checkout needs no
+# tokens. One-time repo settings: Pages source = GitHub Actions; custom domain
+# sagestage.app (the CNAME step below must match). DNS at Hover: apex A records
+# on host @ (never *): 185.199.108.153 / .109.153 / .110.153 / .111.153, and a
+# www CNAME to heutalab.github.io.
+name: deploy-taster
+on:
+  workflow_dispatch: {}     # every deploy is a deliberate click — site edits AND
+                            # app refreshes alike, because any deploy pulls the
+                            # app repo's CURRENT main into try/ (spec §3)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the app (public, tokenless)
+        uses: actions/checkout@v4
+        with:
+          repository: HeutaLab/SageStage
+          path: _src
+      - name: Assemble
+        run: sh scripts/assemble.sh _src
+      - name: Custom-domain CNAME
+        run: echo 'sagestage.app' > site/CNAME
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
