@@ -121,3 +121,7 @@ h2 { font-size: 20px; margin: 34px 0 12px; }
 .socials a { color: var(--ink-soft); display: inline-flex; }
 .socials a:hover { color: var(--accent); }
 .socials svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.join-error { color: #b3261e; font-size: 14px; margin: 10px 0 0; }
+.join-done { background: #eef7f4; border: 1.5px solid rgba(15,118,110,0.4); border-radius: 12px; padding: 20px 24px; max-width: 640px; }
+.join-done h2 { margin: 0 0 8px; }
+.join-done p { color: var(--ink-soft); font-size: 15px; }

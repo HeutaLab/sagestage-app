@@ -38,7 +38,8 @@
         </div>
       </div>
 
-      <form class="join-form" method="post" action="MAILERLITE_ENDPOINT" novalidate>
+      <form class="join-form" id="joinForm" method="post" target="_blank"
+            action="https://assets.mailerlite.com/jsonp/2549221/forms/194608322068874996/subscribe" novalidate>
         <label class="join-label" for="email">Your email</label>
         <input class="join-input" type="email" id="email" name="fields[email]"
                placeholder="you@school.email" autocomplete="email" required />
@@ -46,26 +47,30 @@
         <p class="join-label" style="margin-top:22px;">What would you like to hear about?</p>
 
         <label class="join-check">
-          <input type="checkbox" name="groups[]" value="GROUP_SAGE_STAGE" checked />
+          <input type="checkbox" name="groups[]" value="194585582628767044" checked />
           <span><b>Sage Stage</b> — the classroom screen. New widgets, the desktop app,
             things worth showing your staff.</span>
         </label>
 
         <label class="join-check">
-          <input type="checkbox" name="groups[]" value="GROUP_ASSESSMENT" />
+          <input type="checkbox" name="groups[]" value="194608041148024501" />
           <span><b>The assessment suite</b> — Classroom Helper and Report Writer: capturing
             evidence at classroom speed, and reports in your own voice. Arriving through the
             autumn.</span>
         </label>
 
         <label class="join-check">
-          <input type="checkbox" name="groups[]" value="GROUP_TALKS" />
+          <input type="checkbox" name="groups[]" value="194608051819381958" />
           <span><b>Talks and workshops</b> — including “The Human in the Middle”: building with
             AI while accountability stays on the human side, never handing a human decision to a
             machine.</span>
         </label>
 
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+
         <button class="cta join-submit" type="submit">Join the list</button>
+        <p class="join-error" id="joinError" hidden>That email address doesn't look right — check it and try again.</p>
 
         <p class="smallprint join-print">Double opt-in, so you'll get one email asking you to
           confirm — that's the consent record, and it's yours as much as ours. Your address is
@@ -76,6 +81,14 @@
       <p class="join-alt">Prefer not to hand over an address? Nothing here needs one —
         <a href="../try/">the taster</a> runs in your browser and keeps your work on your machine,
         and <a href="https://sagestage.co.uk">the help pages</a> are open to everyone.</p>
+      <div class="join-done" id="joinDone" hidden>
+        <h2>One more click</h2>
+        <p>We've sent a confirmation email to <b id="joinWho"></b>. Open it and confirm, and
+          you're on the list — that's the double opt-in doing its job, and it's what makes your
+          consent a matter of record rather than our word for it.</p>
+        <p class="smallprint">Nothing arrived within a few minutes? Check the spam folder, and if
+          it's hiding there, marking it "not spam" helps every future email reach you.</p>
+      </div>
     </main>
 
     <div class="socials">
@@ -88,5 +101,36 @@
       <a href="https://sagestage.co.uk">Help</a> ·
       <a href="../workshop/">Workshop</a></footer>
   </div>
+  <script>
+    (function () {
+      var form = document.getElementById('joinForm');
+      var done = document.getElementById('joinDone');
+      var err  = document.getElementById('joinError');
+      var who  = document.getElementById('joinWho');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        var email = form.querySelector('input[type=email]');
+        var ok = email.value && /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email.value.trim());
+        if (!ok) { e.preventDefault(); err.hidden = false; email.focus(); return; }
+        err.hidden = true;
+        // No JS? The form posts natively and MailerLite answers in a new tab.
+        // With JS we send it ourselves and keep the teacher on our page — the
+        // response is opaque (cross-origin), but the double opt-in email is the
+        // real confirmation, so the message below promises only what is true.
+        if (window.fetch && window.FormData) {
+          e.preventDefault();
+          fetch(form.action, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+            .then(function () { show(email.value.trim()); })
+            .catch(function () { form.removeEventListener('submit', arguments.callee); form.submit(); });
+        }
+      });
+      function show(address) {
+        who.textContent = address;
+        form.hidden = true;
+        done.hidden = false;
+        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }());
+  </script>
 </body>
 </html>
